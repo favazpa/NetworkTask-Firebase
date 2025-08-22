@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "724550163761",
+    "project_id": "network-task-58b44",
+    "storage_bucket": "network-task-58b44.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724550163761:android:e412dc603aa9b171c76410",
+        "android_client_info": {
+          "package_name": "com.networktask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCH40JXUVJYtFV-iu7cR-72jvOA-J5SCOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
