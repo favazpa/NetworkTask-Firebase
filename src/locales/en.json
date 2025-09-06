@@ -1,0 +1,56 @@
+{
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "username": "Username",
+    "welcome": "Welcome back!",
+    "pleaseFillFields": "Please fill all required fields.",
+    "invalidEmail": "Please enter a valid email address.",
+    "loginFailed": "Login failed",
+    "signupFailed": "Signup failed"
+  },
+  "landing": {
+    "products": "Products",
+    "addToCart": "Add to Cart",
+    "addedToCart": "added to cart!",
+    "welcomeBack": "Welcome back!",
+    "pageInfo": "Page {page} of {totalPages} ({items} items)",
+    "noMoreProducts": "No more products to load"
+  },
+  "cart": {
+    "shoppingCart": "Shopping Cart",
+    "emptyCart": "Empty Cart",
+    "total": "Total",
+    "items": "items",
+    "proceedToCheckout": "Proceed to Checkout",
+    "yourCartIsEmpty": "Your cart is empty",
+    "addSomeProducts": "Add some products to get started"
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "markAllRead": "Mark All Read",
+    "clearAll": "Clear All",
+    "noNotifications": "No notifications",
+    "notificationsDescription": "You'll see updates here when they arrive"
+  },
+  "settings": {
+    "settings": "Settings",
+    "account": "Account",
+    "preferences": "Preferences",
+    "pushNotifications": "Push Notifications",
+    "pushNotificationsDescription": "Receive notifications about orders and promotions",
+    "languageDirection": "Language Direction",
+    "languageDescription": "Switch between LTR and RTL layouts",
+    "app": "App",
+    "about": "About",
+    "helpSupport": "Help & Support",
+    "dataManagement": "Data Management",
+    "clearAllData": "Clear All Data",
+    "clearAllDataDescription": "Clear cart and notifications",
+    "logout": "Logout",
+    "logoutConfirmation": "Are you sure you want to logout? This will clear your cart.",
+    "clearDataConfirmation": "This will clear your cart and notifications. This action cannot be undone."
+  }
+}

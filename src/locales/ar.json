@@ -1,0 +1,56 @@
+{
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "username": "اسم المستخدم",
+    "welcome": "مرحباً بعودتك!",
+    "pleaseFillFields": "يرجى ملء جميع الحقول المطلوبة.",
+    "invalidEmail": "يرجى إدخال عنوان بريد إلكتروني صحيح.",
+    "loginFailed": "فشل تسجيل الدخول",
+    "signupFailed": "فشل إنشاء الحساب"
+  },
+  "landing": {
+    "products": "المنتجات",
+    "addToCart": "أضف للسلة",
+    "addedToCart": "تم إضافته للسلة!",
+    "welcomeBack": "مرحباً بعودتك!",
+    "pageInfo": "صفحة {page} من {totalPages} ({items} عنصر)",
+    "noMoreProducts": "لا توجد منتجات أخرى للتحميل"
+  },
+  "cart": {
+    "shoppingCart": "سلة التسوق",
+    "emptyCart": "إفراغ السلة",
+    "total": "المجموع",
+    "items": "عناصر",
+    "proceedToCheckout": "المتابعة للدفع",
+    "yourCartIsEmpty": "سلتك فارغة",
+    "addSomeProducts": "أضف بعض المنتجات للبدء"
+  },
+  "notifications": {
+    "notifications": "الإشعارات",
+    "markAllRead": "تعيين الكل كمقروء",
+    "clearAll": "مسح الكل",
+    "noNotifications": "لا توجد إشعارات",
+    "notificationsDescription": "ستظهر هنا التحديثات عند وصولها"
+  },
+  "settings": {
+    "settings": "الإعدادات",
+    "account": "الحساب",
+    "preferences": "التفضيلات",
+    "pushNotifications": "الإشعارات الفورية",
+    "pushNotificationsDescription": "تلقي إشعارات حول الطلبات والعروض",
+    "languageDirection": "اتجاه اللغة",
+    "languageDescription": "التبديل بين التخطيط من اليسار لليمين ومن اليمين لليسار",
+    "app": "التطبيق",
+    "about": "حول",
+    "helpSupport": "المساعدة والدعم",
+    "dataManagement": "إدارة البيانات",
+    "clearAllData": "مسح جميع البيانات",
+    "clearAllDataDescription": "مسح السلة والإشعارات",
+    "logout": "تسجيل الخروج",
+    "logoutConfirmation": "هل أنت متأكد من تسجيل الخروج؟ سيتم مسح سلتك.",
+    "clearDataConfirmation": "سيتم مسح سلتك وإشعاراتك. لا يمكن التراجع عن هذا الإجراء."
+  }
+}

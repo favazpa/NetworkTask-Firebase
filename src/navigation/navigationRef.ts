@@ -7,9 +7,26 @@ export function navReady() {
   return navigationRef.isReady();
 }
 
-export function goToChat() {
+export function goToCart() {
   if (navigationRef.isReady()) {
-    // push Chat on top so Back returns to Home
-    navigationRef.navigate('Chat', { roomId: 'global' } as any);
+    navigationRef.navigate('Cart');
+  }
+}
+
+export function goToNotifications() {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate('Notifications');
+  }
+}
+
+export function goToSettings() {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate('Settings');
+  }
+}
+
+export function goToLanding() {
+  if (navigationRef.isReady()) {
+    navigationRef.navigate('Landing');
   }
 }

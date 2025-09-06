@@ -1,25 +1,38 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { I18nManager } from 'react-native';
 import { RootStackParamList } from './types';
+import { useLanguageStore } from '../store/languageStore';
 
 import SplashScreen from '../screens/auth/SplashScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import { useAuthStore } from '../store/authStore';
-import { SCREEN_NAMES } from './routes';
-import ChatScreen from '../screens/app/ChatScreen';
 import {
   commonHeaderOptions,
   largeTitleOptions,
 } from '../shared/utils/navigation/headerOptions';
 import { navigationRef } from './navigationRef';
-import HomeScreen from '../screens/app/HomeScreen';
+import LandingScreen from '../screens/app/LandingScreen';
+import CartScreen from '../screens/app/CartScreen';
+import NotificationsScreen from '../screens/app/NotificationsScreen';
+import SettingsScreen from '../screens/app/SettingsScreen';
 import SignupScreen from '../screens/auth/SignupScreen';
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   const { isLoggedIn, hasHydrated } = useAuthStore();
+  const { initializeRTL } = useLanguageStore();
+
+  React.useEffect(() => {
+    if (hasHydrated) {
+      // Small delay to ensure language store is also hydrated
+      setTimeout(() => {
+        initializeRTL();
+      }, 100);
+    }
+  }, [hasHydrated, initializeRTL]);
 
   if (!hasHydrated) {
     return <SplashScreen />;
@@ -36,25 +49,35 @@ export default function RootNavigator() {
         {isLoggedIn ? (
           <>
             <RootStack.Screen
-              name={SCREEN_NAMES.Home}
-              component={HomeScreen}
-              options={{ title: 'Home' }}
+              name="Landing"
+              component={LandingScreen}
+              options={{ title: 'Products' }}
             />
             <RootStack.Screen
-              name={SCREEN_NAMES.Chat}
-              component={ChatScreen}
-              options={{ title: 'Global Chat' }}
+              name="Cart"
+              component={CartScreen}
+              options={{ title: 'Shopping Cart' }}
+            />
+            <RootStack.Screen
+              name="Notifications"
+              component={NotificationsScreen}
+              options={{ title: 'Notifications' }}
+            />
+            <RootStack.Screen
+              name="Settings"
+              component={SettingsScreen}
+              options={{ title: 'Settings' }}
             />
           </>
         ) : (
           <>
             <RootStack.Screen
-              name={SCREEN_NAMES.Login}
+              name="Login"
               component={LoginScreen}
               options={{ title: 'Login' }}
             />
             <RootStack.Screen
-              name={SCREEN_NAMES.Signup}
+              name="Signup"
               component={SignupScreen}
               options={{ title: 'Sign Up' }}
             />

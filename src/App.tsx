@@ -3,14 +3,22 @@ import RootNavigator from './navigation/RootNavigator';
 import InAppNotification from './features/inapp/InAppNotification';
 import useNotificationSetup from './hooks/useNotificationSetup';
 import { initNotificationsOnce } from './services/notifications/notificationService';
-import useChatTopic from './hooks/useChatTopics';
+import { useSettingsStore } from './store/settingsStore';
 
 export default function App() {
   useNotificationSetup();
-  useChatTopic();
+  const { pushNotificationsEnabled, hasHydrated } = useSettingsStore();
+  
   useEffect(() => {
-    initNotificationsOnce();
-  }, []);
+    console.log('App useEffect - hasHydrated:', hasHydrated, 'pushNotificationsEnabled:', pushNotificationsEnabled);
+    // Only initialize notifications if they're enabled and settings are hydrated
+    if (hasHydrated && pushNotificationsEnabled) {
+      console.log('App: Initializing notifications...');
+      initNotificationsOnce();
+    } else if (hasHydrated && !pushNotificationsEnabled) {
+      console.log('App: Notifications disabled, skipping initialization');
+    }
+  }, [hasHydrated, pushNotificationsEnabled]);
 
   return (
     <>
