@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-import { useAlertStore } from '../../store/alerts';
 import useGlobalMessages, { ChatMsg } from '../../hooks/useGlobalMessages';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -40,10 +39,6 @@ export default function ChatScreen() {
     setInputBarHeight(Math.ceil(e.nativeEvent.layout.height));
   };
 
-  // Clear badge when entering chat
-  useEffect(() => {
-    useAlertStore.getState().markAllSeen();
-  }, []);
 
   const data = useMemo(() => msgs, [msgs]);
 

@@ -11,10 +11,10 @@ export default function useChatTopic() {
       try {
         if (isLoggedIn) {
           await messaging().subscribeToTopic('global-chat');
-          if (!cancelled) console.log('✅ Subscribed to global-chat');
+          if (!cancelled) console.log('Subscribed to global-chat');
         } else {
           await messaging().unsubscribeFromTopic('global-chat');
-          if (!cancelled) console.log('🚪 Unsubscribed from global-chat');
+          if (!cancelled) console.log('Unsubscribed from global-chat');
         }
       } catch (e) {
         console.log('Topic toggle error', e);

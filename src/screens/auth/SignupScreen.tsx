@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { RootStackParamList } from '../../navigation/types';
 import { useAuthStore } from '../../store/authStore';
@@ -23,28 +22,50 @@ export default function SignupScreen({ navigation }: Props) {
   const logout = useAuthStore(s => s.logout);
 
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  const onSignup = async () => {
-    if (!email.trim() || !password) {
-      Alert.alert('Error', 'Please fill all required fields.');
-      return;
-    }
-    setSubmitting(true);
-    try {
-      await signup({ email, password });
-      await logout();
+  function isValidEmail(email: string): boolean {
+    // Trim and validate using a clean regex
+    const trimmed = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
-      Alert.alert('Success', 'Account created. Please log in.', [
-        { text: 'OK', onPress: () => navigation.goBack() },
-      ]);
-    } catch (e: any) {
-      Alert.alert('Signup failed', e?.message ?? 'Please try again.');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    return emailRegex.test(trimmed);
+  }
+
+  const onSignup = async () => {
+  if (
+    !email.trim() ||
+    !password.trim() ||
+    !firstName.trim() ||
+    !lastName.trim()
+  ) {
+    Alert.alert('Error', 'Please fill all required fields.');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    Alert.alert('Invalid Email', 'Please enter a valid email address.');
+    return;
+  }
+
+  setSubmitting(true);
+  try {
+    await signup({ email, password, firstName, lastName });
+    // await logout();
+
+    // Alert.alert('Success', 'Account created. Please log in.', [
+    //   { text: 'OK', onPress: () => navigation.goBack() },
+    // ]);
+  } catch (e: any) {
+    Alert.alert('Signup failed', e?.message ?? 'Please try again.');
+  } finally {
+    setSubmitting(false);
+  }
+};
+
 
   return (
     <View style={styles.screen}>
@@ -52,6 +73,42 @@ export default function SignupScreen({ navigation }: Props) {
         <View style={styles.header}>
           <Ionicons name="person-add-outline" size={28} color={colors.accent} />
           <Text style={styles.title}>signup</Text>
+        </View>
+
+        <View style={styles.inputWrap}>
+          <Ionicons
+            name="person-outline"
+            size={18}
+            color={colors.sub}
+            style={styles.inputIcon}
+          />
+          <TextInput
+            value={firstName}
+            onChangeText={setFirstName}
+            autoCapitalize="none"
+            keyboardType="default"
+            placeholder={'First Name'}
+            placeholderTextColor={colors.sub}
+            style={styles.input}
+          />
+        </View>
+
+        <View style={styles.inputWrap}>
+          <Ionicons
+            name="person-outline"
+            size={18}
+            color={colors.sub}
+            style={styles.inputIcon}
+          />
+          <TextInput
+            value={lastName}
+            onChangeText={setLastName}
+            autoCapitalize="none"
+            keyboardType="default"
+            placeholder={'Last Name'}
+            placeholderTextColor={colors.sub}
+            style={styles.input}
+          />
         </View>
 
         <View style={styles.inputWrap}>

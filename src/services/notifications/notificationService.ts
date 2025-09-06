@@ -16,25 +16,6 @@ async function ensureChannel() {
   });
 }
 
-async function showForegroundNotification(remoteMessage: any) {
-  await ensureChannel();
-
-  await notifee.displayNotification({
-    title: remoteMessage?.notification?.title ?? 'New Message',
-    body: remoteMessage?.notification?.body ?? '',
-    data: {
-      ...(remoteMessage?.data ?? {}),
-      screen: 'Chat',
-      roomId: remoteMessage?.data?.roomId ?? 'global',
-    },
-    android: {
-      channelId: 'default',
-      smallIcon: 'ic_launcher',
-      pressAction: { id: 'default' },
-    },
-  });
-}
-
 function handleForeground(remoteMessage: any) {
   const id = remoteMessage?.messageId;
   if (id && seen.has(id)) return;
@@ -93,11 +74,4 @@ export function initNotificationsOnce() {
   });
 
   unsubs = [u1, u2, u3];
-}
-
-export function teardownNotifications() {
-  unsubs.forEach(u => u());
-  unsubs = [];
-  started = false;
-  seen.clear();
 }

@@ -11,7 +11,6 @@ import { useNavigation } from '@react-navigation/native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import messaging from '@react-native-firebase/messaging';
 import { useAuthStore } from '../../store/authStore';
-import { useAlertStore } from '../../store/alerts';
 import { requestUserPermission } from '../../shared/utils/common';
 
 type Nav = ReturnType<typeof useNavigation>;
@@ -22,9 +21,6 @@ export default function HomeScreen() {
   const user = useAuthStore(s => s.user);
   const logout = useAuthStore(s => s.logout);
 
-  const unseenCount = useAlertStore(s => s.unseenCount);
-  const latestTitle = useAlertStore(s => s.latestTitle);
-  const latestBody = useAlertStore(s => s.latestBody);
 
   const [notification, setNotification] = useState<string | null>(null);
 
@@ -60,7 +56,7 @@ export default function HomeScreen() {
       <View style={styles.card}>
         <Ionicons name="person-circle-outline" size={64} color="#009BFF" />
         <Text style={styles.title}>Network International</Text>
-        <Text style={styles.subtitle}>Welcome</Text>
+        <Text style={styles.subtitle}>Welcome {user?.firstName} {user?.lastName}</Text>
 
         <View style={styles.userInfo}>
           <Text style={styles.label}>Logged in as</Text>
@@ -83,20 +79,10 @@ export default function HomeScreen() {
             </View>
             <View style={{ flex: 1 }}>
               <Text style={styles.chatTitle}>Open Global Chat</Text>
-              <Text numberOfLines={1} style={styles.chatSubtitle}>
-                {latestTitle || latestBody
-                  ? `${latestTitle ?? ''} ${latestBody ?? ''}`.trim()
-                  : 'No new messages'}
-              </Text>
             </View>
           </View>
 
           <View style={styles.chatRight}>
-            {unseenCount > 0 && (
-              <View style={styles.badge}>
-                <Text style={styles.badgeText}>{unseenCount}</Text>
-              </View>
-            )}
             <Ionicons name="chevron-forward" size={18} color="#9aa3a7" />
           </View>
         </TouchableOpacity>
@@ -120,12 +106,13 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: '#0D0D0D',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
   },
   card: {
     width: '100%',
+    height:"100%",
     backgroundColor: '#141414',
     padding: 24,
     borderRadius: 16,

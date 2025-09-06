@@ -8,7 +8,7 @@ export default function useNotificationSetup() {
   useEffect(() => {
     const checkAndRequest = async () => {
       const { status } = await checkNotifications();
-      console.log('🔍 Current permission status:', status);
+      console.log('Current permission status:', status);
 
       if (status === 'blocked') {
         Alert.alert(
@@ -18,13 +18,12 @@ export default function useNotificationSetup() {
         return;
       }
 
-      // Ask Firebase for permission (iOS shows system prompt when needed)
       const authStatus = await messaging().requestPermission();
       const enabled =
         authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
         authStatus === messaging.AuthorizationStatus.PROVISIONAL;
       if (!enabled) {
-        console.log('❌ Permission denied');
+        console.log('Permission denied');
         return;
       }
 
@@ -40,13 +39,13 @@ export default function useNotificationSetup() {
           },
         );
         if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          console.log('🚫 Android notification permission denied');
+          console.log('Android notification permission denied');
           return;
         }
       }
 
       const token = await messaging().getToken();
-      console.log('📱 FCM Token:', token);
+      console.log('FCM Token:', token);
       initNotificationsOnce();
     };
 

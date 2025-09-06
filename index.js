@@ -9,7 +9,7 @@ import App from './src/App';
 import messaging from '@react-native-firebase/messaging';
 
 messaging().setBackgroundMessageHandler(async remoteMessage => {
-  console.log('📬 Background FCM Message:', remoteMessage);
+  console.log('Background FCM Message:', remoteMessage);
 });
 
 AppRegistry.registerComponent(appName, () => App);

@@ -37,7 +37,7 @@ export default function LoginScreen({ navigation }: Props) {
       await loginWithPassword(email, password);
 
       // Navigate to app
-      navigation.replace(SCREEN_NAMES.Home);
+      // navigation.replace(SCREEN_NAMES.Home);
     } catch (e: any) {
       Alert.alert('Login failed', e?.message ?? 'Please try again.');
     } finally {
