@@ -10,7 +10,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { RootStackParamList } from '../../navigation/types';
 import { useAuthStore } from '../../store/authStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useTranslation } from '../../hooks/useTranslation';
 import colors from '../../shared/theme/colors';
 import { VALIDATION } from '../../shared/constants';
 import { Button, Input } from '../../shared/components';
@@ -19,9 +19,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Signup'>;
 
 export default function SignupScreen({ navigation }: Props) {
   const { signup, isLoading } = useAuthStore();
-  const { translations } = useLanguageStore();
-  
-  const t = translations;
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -66,7 +64,7 @@ export default function SignupScreen({ navigation }: Props) {
         <Input
           value={username}
           onChangeText={setUsername}
-          placeholder={t.auth.username}
+          placeholder={t('auth.username')}
           type="text"
           icon="person-outline"
         />
@@ -74,7 +72,7 @@ export default function SignupScreen({ navigation }: Props) {
         <Input
           value={email}
           onChangeText={setEmail}
-          placeholder={t.auth.email}
+          placeholder={t('auth.email')}
           type="email"
           icon="mail-outline"
         />
@@ -82,20 +80,20 @@ export default function SignupScreen({ navigation }: Props) {
         <Input
           value={password}
           onChangeText={setPassword}
-          placeholder={t.auth.password}
+          placeholder={t('auth.password')}
           type="password"
           icon="lock-closed-outline"
         />
 
         <Button
-          title={t.auth.signup}
+          title={t('auth.signup')}
           onPress={onSignup}
           loading={isLoading}
           disabled={isLoading}
         />
 
         <Button
-          title={t.auth.login}
+          title={t('auth.login')}
           onPress={() => navigation.navigate('Login')}
           variant="ghost"
           disabled={isLoading}

@@ -9,7 +9,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import colors from '../../shared/theme/colors';
 import { useAuthStore } from '../../store/authStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useTranslation } from '../../hooks/useTranslation';
 import type { RootStackParamList } from '../../navigation/types';
 import { Button, Input } from '../../shared/components';
 import Ionicons from '@react-native-vector-icons/ionicons';
@@ -18,9 +18,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 export default function LoginScreen({ navigation }: Props) {
   const { loginWithPassword, isLoading } = useAuthStore();
-  const { translations } = useLanguageStore();
-  
-  const t = translations;
+  const { t } = useTranslation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -28,14 +26,14 @@ export default function LoginScreen({ navigation }: Props) {
 
   const onLogin = async () => {
     if (!email.trim() || !password) {
-      Alert.alert('Error', 'Please enter email and password.');
+      Alert.alert(t('auth.pleaseFillFields'), t('auth.pleaseFillFields'));
       return;
     }
     
     try {
       await loginWithPassword({ email, password });
     } catch (e: any) {
-      Alert.alert('Login failed', e?.message ?? 'Please try again.');
+      Alert.alert(t('auth.loginFailed'), e?.message ?? t('auth.loginFailed'));
     }
   };
 
@@ -45,14 +43,14 @@ export default function LoginScreen({ navigation }: Props) {
         <View style={styles.header}>
           <Ionicons name="sparkles" size={28} color={colors.accent} />
           <Text style={styles.title}>Network International</Text>
-          <Text style={styles.subtitle}>{t.auth.login}</Text>
+          <Text style={styles.subtitle}>{t('auth.login')}</Text>
         </View>
 
         {/* Email */}
         <Input
           value={email}
           onChangeText={setEmail}
-          placeholder={t.auth.email}
+          placeholder={t('auth.email')}
           type="email"
           icon="mail-outline"
         />
@@ -61,14 +59,14 @@ export default function LoginScreen({ navigation }: Props) {
         <Input
           value={password}
           onChangeText={setPassword}
-          placeholder={t.auth.password}
+          placeholder={t('auth.password')}
           type="password"
           icon="lock-closed-outline"
         />
 
         {/* Login button */}
         <Button
-          title={t.auth.login}
+          title={t('auth.login')}
           onPress={onLogin}
           loading={isLoading}
           disabled={isLoading}
@@ -83,7 +81,7 @@ export default function LoginScreen({ navigation }: Props) {
 
         {/* Signup button */}
         <Button
-          title={t.auth.signup}
+          title={t('auth.signup')}
           onPress={() => navigation.navigate('Signup')}
           variant="ghost"
         />

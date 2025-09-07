@@ -11,14 +11,12 @@ import {
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useCartStore, CartItem } from '../../store/cartStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useTranslation } from '../../hooks/useTranslation';
 import colors from '../../shared/theme/colors';
 
 export default function CartScreen() {
   const { items, hasHydrated, updateQuantity, removeFromCart, clearCart, getTotalPrice } = useCartStore();
-  const { translations } = useLanguageStore();
-  
-  const t = translations;
+  const { t } = useTranslation();
 
   // Show loading state while cart is hydrating
   if (!hasHydrated) {
@@ -89,8 +87,8 @@ export default function CartScreen() {
     return (
       <View style={styles.emptyContainer}>
         <Ionicons name="cart-outline" size={64} color={colors.sub} />
-        <Text style={styles.emptyTitle}>{t.cart.yourCartIsEmpty}</Text>
-        <Text style={styles.emptySubtitle}>{t.cart.addSomeProducts}</Text>
+        <Text style={styles.emptyTitle}>{t('cart.yourCartIsEmpty')}</Text>
+        <Text style={styles.emptySubtitle}>{t('cart.addSomeProducts')}</Text>
       </View>
     );
   }
@@ -104,7 +102,7 @@ export default function CartScreen() {
           onPress={handleClearCart}
         >
           <Ionicons name="trash-outline" size={20} color={colors.danger} />
-          <Text style={styles.clearButtonText}>{t.cart.emptyCart}</Text>
+          <Text style={styles.clearButtonText}>{t('cart.emptyCart')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -118,12 +116,12 @@ export default function CartScreen() {
 
       <View style={styles.footer}>
         <View style={styles.totalContainer}>
-          <Text style={styles.totalLabel}>{t.cart.total} ({items.length} {t.cart.items})</Text>
+          <Text style={styles.totalLabel}>{t('cart.total')} ({items.length} {t('cart.items')})</Text>
           <Text style={styles.totalPrice}>${totalPrice.toFixed(2)}</Text>
         </View>
         
         <TouchableOpacity style={styles.checkoutButton}>
-          <Text style={styles.checkoutButtonText}>{t.cart.proceedToCheckout}</Text>
+          <Text style={styles.checkoutButtonText}>{t('cart.proceedToCheckout')}</Text>
           <Ionicons name="arrow-forward" size={20} color="#000" />
         </TouchableOpacity>
       </View>

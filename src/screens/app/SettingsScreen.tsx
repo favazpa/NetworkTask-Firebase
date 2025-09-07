@@ -13,7 +13,7 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import { useAuthStore } from '../../store/authStore';
 import { useCartStore } from '../../store/cartStore';
 import { useNotificationsStore } from '../../store/notificationsStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useTranslation } from '../../hooks/useTranslation';
 import { useSettingsStore } from '../../store/settingsStore';
 import { sendTestNotification } from '../../services/notifications/testNotifications';
 import colors from '../../shared/theme/colors';
@@ -23,19 +23,17 @@ export default function SettingsScreen() {
   const logout = useAuthStore(s => s.logout);
   const clearCart = useCartStore(s => s.clearCart);
   const clearAllNotifications = useNotificationsStore(s => s.clearAllNotifications);
-  const { currentLanguage, isRTL, toggleLanguage, translations } = useLanguageStore();
+  const { t, toggleLanguage, isRTL, currentLanguage } = useTranslation();
   const { pushNotificationsEnabled, setPushNotificationsEnabled } = useSettingsStore();
-  
-  const t = translations;
 
   const handleLogout = () => {
     Alert.alert(
-      t.settings.logout,
-      t.settings.logoutConfirmation,
+      t('settings.logout'),
+      t('settings.logoutConfirmation'),
       [
         { text: 'Cancel', style: 'cancel' },
         {
-          text: t.settings.logout,
+          text: t('settings.logout'),
           style: 'destructive',
           onPress: () => {
             clearCart();
@@ -49,8 +47,8 @@ export default function SettingsScreen() {
 
   const handleClearData = () => {
     Alert.alert(
-      t.settings.clearAllData,
-      t.settings.clearDataConfirmation,
+      t('settings.clearAllData'),
+      t('settings.clearDataConfirmation'),
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -121,7 +119,7 @@ export default function SettingsScreen() {
 
       {/* User Info Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.settings.account}</Text>
+        <Text style={styles.sectionTitle}>{t('settings.account')}</Text>
         
         <View style={styles.userCard}>
           <View style={styles.userIcon}>
@@ -136,12 +134,12 @@ export default function SettingsScreen() {
 
       {/* Preferences Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.settings.preferences}</Text>
+        <Text style={styles.sectionTitle}>{t('settings.preferences')}</Text>
         
         <SettingItem
           icon="notifications-outline"
-          title={t.settings.pushNotifications}
-          subtitle={t.settings.pushNotificationsDescription}
+          title={t('settings.pushNotifications')}
+          subtitle={t('settings.pushNotificationsDescription')}
           rightComponent={
             <Switch
               value={pushNotificationsEnabled}
@@ -155,14 +153,14 @@ export default function SettingsScreen() {
         
         <SettingItem
           icon="language-outline"
-          title={t.settings.languageDirection}
-          subtitle={t.settings.languageDescription}
+          title={t('settings.languageDirection')}
+          subtitle={t('settings.languageDescription')}
           rightComponent={
             <Switch
-              value={isRTL}
+              value={currentLanguage === 'ar'}
               onValueChange={toggleLanguage}
               trackColor={{ false: colors.border, true: colors.accent }}
-              thumbColor={isRTL ? '#fff' : colors.sub}
+              thumbColor={currentLanguage === 'ar' ? '#fff' : colors.sub}
             />
           }
           showArrow={false}
@@ -171,18 +169,18 @@ export default function SettingsScreen() {
 
       {/* App Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.settings.app}</Text>
+        <Text style={styles.sectionTitle}>{t('settings.app')}</Text>
         
         <SettingItem
           icon="information-circle-outline"
-          title={t.settings.about}
+          title={t('settings.about')}
           subtitle="App version and information"
           onPress={() => Alert.alert('About', 'NetworkTask E-commerce App\nVersion 1.0.0')}
         />
         
         <SettingItem
           icon="help-circle-outline"
-          title={t.settings.helpSupport}
+          title={t('settings.helpSupport')}
           subtitle="Get help and contact support"
           onPress={() => Alert.alert('Help', 'For support, please contact us at support@networktask.com')}
         />
@@ -190,7 +188,7 @@ export default function SettingsScreen() {
 
       {/* Data Management Section */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>{t.settings.dataManagement}</Text>
+        <Text style={styles.sectionTitle}>{t('settings.dataManagement')}</Text>
         
         <SettingItem
           icon="notifications-outline"
@@ -201,8 +199,8 @@ export default function SettingsScreen() {
         
         <SettingItem
           icon="trash-outline"
-          title={t.settings.clearAllData}
-          subtitle={t.settings.clearAllDataDescription}
+          title={t('settings.clearAllData')}
+          subtitle={t('settings.clearAllDataDescription')}
           onPress={handleClearData}
         />
       </View>
@@ -211,7 +209,7 @@ export default function SettingsScreen() {
       <View style={styles.section}>
         <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
           <Ionicons name="log-out-outline" size={20} color="#fff" />
-          <Text style={styles.logoutButtonText}>{t.settings.logout}</Text>
+          <Text style={styles.logoutButtonText}>{t('settings.logout')}</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

@@ -15,7 +15,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useAuthStore } from '../../store/authStore';
 import { useCartStore } from '../../store/cartStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useTranslation } from '../../hooks/useTranslation';
 import { getProductsPage, getTotalPages, Product, ITEMS_PER_PAGE } from '../../data/products';
 import colors from '../../shared/theme/colors';
 import type { RootStackParamList } from '../../navigation/types';
@@ -28,7 +28,7 @@ export default function LandingScreen() {
   const navigation = useNavigation<NavigationProp>();
   const user = useAuthStore(s => s.user);
   const { addToCart, getTotalItems } = useCartStore();
-  const { translations } = useLanguageStore();
+  const { t } = useTranslation();
   const [notification, setNotification] = useState<string | null>(null);
   
   // Pagination state
@@ -37,8 +37,6 @@ export default function LandingScreen() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [hasMoreData, setHasMoreData] = useState(true);
-  
-  const t = translations;
   const cartItemCount = getTotalItems();
   const totalPages = getTotalPages();
 
@@ -99,7 +97,7 @@ export default function LandingScreen() {
       price: product.price,
       image: product.image,
     });
-    showNotification(`${product.title} ${t.landing?.addedToCart || 'added to cart!'}`);
+    showNotification(`${product.title} ${t('landing.addedToCart')}`);
   };
 
   const navigateToCart = () => {
@@ -127,7 +125,7 @@ export default function LandingScreen() {
             onPress={() => handleAddToCart(item)}
           >
             <Ionicons name="add" size={16} color="#000" />
-            <Text style={styles.addButtonText}>{t.landing?.addToCart || 'Add to Cart'}</Text>
+            <Text style={styles.addButtonText}>{t('landing.addToCart')}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -141,7 +139,7 @@ export default function LandingScreen() {
         <View style={styles.userInfo}>
           <Ionicons name="person-circle-outline" size={32} color={colors.accent} />
           <View style={styles.userDetails}>
-            <Text style={styles.welcomeText}>{t.landing?.welcomeBack || 'Welcome back!'}</Text>
+            <Text style={styles.welcomeText}>{t('landing.welcomeBack')}</Text>
             <Text style={styles.username}>{user?.username || 'User'}</Text>
             <Text style={styles.email}>{user?.email}</Text>
           </View>
@@ -179,14 +177,12 @@ export default function LandingScreen() {
       {/* Products List */}
       <View style={styles.productsContainer}>
         <View style={styles.sectionHeader}>
-          <Text style={styles.sectionTitle}>{t.landing?.products || 'Products'}</Text>
+          <Text style={styles.sectionTitle}>{t('landing.products')}</Text>
           <Text style={styles.pageInfo}>
-            {t.landing?.pageInfo
-              ? t.landing.pageInfo
-                  .replace('{page}', currentPage.toString())
-                  .replace('{totalPages}', totalPages.toString())
-                  .replace('{items}', products.length.toString())
-              : `Page ${currentPage} of ${totalPages} (${products.length} items)`}
+            {t('landing.pageInfo')
+              .replace('{page}', currentPage.toString())
+              .replace('{totalPages}', totalPages.toString())
+              .replace('{items}', products.length.toString())}
           </Text>
         </View>
         
@@ -218,7 +214,7 @@ export default function LandingScreen() {
                 />
               )}
               {!hasMoreData && products.length > 0 && (
-                <Text style={styles.endMessage}>{t.landing?.noMoreProducts || 'No more products to load'}</Text>
+                <Text style={styles.endMessage}>{t('landing.noMoreProducts')}</Text>
               )}
             </View>
           )}

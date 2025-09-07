@@ -4,6 +4,7 @@ import InAppNotification from './features/inapp/InAppNotification';
 import useNotificationSetup from './hooks/useNotificationSetup';
 import { initNotificationsOnce } from './services/notifications/notificationService';
 import { useSettingsStore } from './store/settingsStore';
+import './i18n'; // Initialize i18n
 
 export default function App() {
   useNotificationSetup();

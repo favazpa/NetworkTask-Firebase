@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import { useNotificationsStore, Notification } from '../../store/notificationsStore';
-import { useLanguageStore } from '../../store/languageStore';
+import { useTranslation } from '../../hooks/useTranslation';
 import colors from '../../shared/theme/colors';
 
 export default function NotificationsScreen() {
@@ -21,9 +21,7 @@ export default function NotificationsScreen() {
     clearAllNotifications,
     getUnreadCount,
   } = useNotificationsStore();
-  const { translations } = useLanguageStore();
-  
-  const t = translations;
+  const { t } = useTranslation();
 
   const unreadCount = getUnreadCount();
 
@@ -113,8 +111,8 @@ export default function NotificationsScreen() {
     return (
       <View style={styles.emptyContainer}>
         <Ionicons name="notifications-outline" size={64} color={colors.sub} />
-        <Text style={styles.emptyTitle}>{t.notifications.noNotifications}</Text>
-        <Text style={styles.emptySubtitle}>{t.notifications.notificationsDescription}</Text>
+        <Text style={styles.emptyTitle}>{t('notifications.noNotifications')}</Text>
+        <Text style={styles.emptySubtitle}>{t('notifications.notificationsDescription')}</Text>
       </View>
     );
   }
@@ -137,7 +135,7 @@ export default function NotificationsScreen() {
               style={styles.actionButton}
               onPress={handleMarkAllAsRead}
             >
-              <Text style={styles.actionButtonText}>{t.notifications.markAllRead}</Text>
+              <Text style={styles.actionButtonText}>{t('notifications.markAllRead')}</Text>
             </TouchableOpacity>
           )}
           
@@ -145,7 +143,7 @@ export default function NotificationsScreen() {
             style={styles.actionButton}
             onPress={handleClearAll}
           >
-            <Text style={styles.actionButtonText}>{t.notifications.clearAll}</Text>
+            <Text style={styles.actionButtonText}>{t('notifications.clearAll')}</Text>
           </TouchableOpacity>
         </View>
       </View>

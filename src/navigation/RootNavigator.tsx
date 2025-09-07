@@ -1,9 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { I18nManager } from 'react-native';
 import { RootStackParamList } from './types';
-import { useLanguageStore } from '../store/languageStore';
 
 import SplashScreen from '../screens/auth/SplashScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
@@ -23,16 +21,6 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default function RootNavigator() {
   const { isLoggedIn, hasHydrated } = useAuthStore();
-  const { initializeRTL } = useLanguageStore();
-
-  React.useEffect(() => {
-    if (hasHydrated) {
-      // Small delay to ensure language store is also hydrated
-      setTimeout(() => {
-        initializeRTL();
-      }, 100);
-    }
-  }, [hasHydrated, initializeRTL]);
 
   if (!hasHydrated) {
     return <SplashScreen />;
